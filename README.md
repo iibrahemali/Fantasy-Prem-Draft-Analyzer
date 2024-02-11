@@ -1,1 +1,1 @@
-# Fantasy-Prem-Draft-Analyzer-
+# Fantasy-Prem-Draft-Analyzer
