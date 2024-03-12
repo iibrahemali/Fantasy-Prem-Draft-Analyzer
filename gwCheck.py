@@ -1,14 +1,14 @@
 import requests, traceback, re, getpass
 
 credentials = {'password': None,
-               'login': 'ibrahem.hassan.28321@gmail.com',
+               'login': 'ibrahem.hassan.28321@gmail.com', ## your email
                'redirect_uri': 'https://fantasy.premierleague.com/a/login',
                'app': 'plfpl-web'
                }
 
-team_id = 5962010
+team_id = 5962010 # get your fpl id from your fpl team web link, then add it here
 
-#Only ask for validation if team_id, email and password havn't been set
+# only ask for validation if team_id, email and password havn't been set
 if team_id == None or credentials['login'] == None:
     while True:
         print ("Enter team ID: ", end = '')
@@ -31,24 +31,24 @@ if team_id == None or credentials['login'] == None:
         credentials['password'] = getpass.getpass()
         break
 
-#getpass method stops password echoing in terminal.
+# getpass method stops password echoing in terminal.
 else:
     print ("Password: ", end = '')
     credentials['password'] = getpass.getpass()
 
-#Bootstrap API
+# bootstrap API
 bootstrap_url = 'https://fantasy.premierleague.com/api/bootstrap-static/'
 get_data_bootstrap = requests.get(bootstrap_url).json()
 
-#Establish session
+# establish session
 session = requests.session()
 session.post('https://users.premierleague.com/accounts/login/', data=credentials)
 
-#Entry section
+# entry section
 entry_api = 'https://fantasy.premierleague.com/api/entry/%s/' % team_id
 get_data_entry = session.get(entry_api).json()
 
-#gw_Team API
+# gw_Team API
 gw_team_api = 'https://fantasy.premierleague.com/api/entry/%s/event/%s/picks/' % (team_id, get_data_entry["current_event"])
 get_gw_team = session.get(gw_team_api).json()
 
